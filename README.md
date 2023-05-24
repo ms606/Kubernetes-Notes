@@ -59,4 +59,38 @@ Service, will catch the request and forward it to whichever pod is least busy.
      * Pods died, Kublets restarted the pods
      * Cluster health.
      * Application deployment health.
-     * 
+
+
+#### Example cluster set-up
+2 Master Nodes (Have important work but has less load work so needs less resource)
+3 Worker Nodes (Need to run pods so needs more resource)
+
+#### Add new Master/Node server
+1. Get new bare server
+2. Install all the master/worker node processes
+3. Add it to cluster
+
+
+## Minikube & Kubectl 
+### Minikube 
+Its a test/Local cluster setup if you dont have much resources to execute multiple Master and Working/Nodes, so you create one minikube which as both Master processes and Worker processesm throught Virtual Box. 
+
+### Kubectl 
+So after create one k8s Node, we need a way to connect and work with the node pods and other k8s components. Its a CLI for k8s cluster. 
+
+
+-- Installation 45:08 
+
+So, in k8s Pod is the smallest units but you don't create that because it abstracted, so you create deployments. 
+when we run 
+``` kubectl create deployment nginx-depl --image=nginx ```
+
+-- blueprints for creating pods
+-- most basic configration for deployment (name and image to use)
+
+### Layers of Abstraction
+1. Deployement: manages a ReplicasSets
+2. ReplicaSet: manages a Pods
+3. Pod: is an abstraction of Container
+4. Container
+   Add everything below that is handles by Kubernetes itself. 
