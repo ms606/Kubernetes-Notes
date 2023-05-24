@@ -36,4 +36,27 @@ Service, will catch the request and forward it to whichever pod is least busy.
 3. Deployment is another abstraction on top of pods. 
 4. This deployment is done for the app pod and not the database pod. 
 5. For the **database pods** we have a component call **StateFulSet**. 
-6. 
+
+## K8s Architecture
+### Worker machine in k8s cluster
+1. Each node has multiple pods (application pod, db pod etc)
+2. 3 process must be installed on every nodes
+   a. Container runtime
+   b. Kubelet (It interacts with both - the container and the node. It also starts the pod with a container inside)  
+   c. DB Service, communication between two nodes 
+   d. Kube proxy, responsible for sending the communication from DB Service to pods. It must be installed on every node. It has the ability to control the logic flow, eg. If DB service is sending the request to Node 1 - Pod 1 for App , so the Kube Proxy will tell the DB service to check the Node 1 - Pod 1 for DB and not go to any other Node to check for the DB.
+3. Nodes are the actual worker nodes that do the work. 
+
+### Master processes
+4 processes run on the master node 
+  1. API Server: It is an initial cluster gateway, it gets initial request from the Client that can be a UI, update or query.
+   Acts as a gatekeeper for authentication. Anything with the request validates requests or other processes..
+  2. Scheduler: Checks all the current nodes, whats the status, how busy it is, and then sends the request to **Kublet** to create a new pod there. 
+  3. Controll Manager: When a pod dies or crashes, controll manager detects it and charges starts back on ASAP. 
+  4. etcd: Key value store/ cluster brain (CLUSTER STATE INFORMATION ONLY) 
+     * What resources are available.
+     * Did cluster change the state. 
+     * Pods died, Kublets restarted the pods
+     * Cluster health.
+     * Application deployment health.
+     * 
