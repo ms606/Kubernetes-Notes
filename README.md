@@ -94,3 +94,17 @@ when we run
 3. Pod: is an abstraction of Container
 4. Container
    Add everything below that is handles by Kubernetes itself. 
+   
+   
+### Complete Application Setup with k8s components
+We will create two pods 
+1. MongoDB pod (internal service) 
+   a) We will create ConfigMap which will have DB Url.
+   b) And a secret which will have DB User & DB Pwd. 
+2. MongoExpress pod (Deployment.yaml)
+   We will reference the ConfigMap and Secret into the deployment.yaml
+
+BROWSER REQUEST FLOW THROUGH THE K8s COMPONENT:
+We will create an external service that will get the request from browser and forward it to Mongo Express that will further go to Mongo DB Internal Service that will go finall to MongoDB
+
+
