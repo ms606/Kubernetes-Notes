@@ -109,7 +109,7 @@ when we run
 * Delete pods ? kubectl delete deployment [name] (Deletiong happens on the deployement level)
 * Usually there are alot of configration but you can't do all in one so when you want to do it later you can do it in a config file : kubectl apply -f [file name] 
    Example kubectl apply -f config-file.yaml
-* 
+* how to create a namespace ? kubectl create namespace my-namesapce
 ```
 
 YAML configration 
@@ -132,7 +132,24 @@ We will create two pods
 2. MongoExpress pod (Deployment.yaml)
    We will reference the ConfigMap and Secret into the deployment.yaml
 
-BROWSER REQUEST FLOW THROUGH THE K8s COMPONENT:
-We will create an external service that will get the request from browser and forward it to Mongo Express that will further go to Mongo DB Internal Service that will go finall to MongoDB
+**BROWSER REQUEST FLOW THROUGH THE K8s COMPONENT:**
 
+We will create an external service that will get the request from browser and forward it to Mongo Express that will further go to Mongo DB Internal Service that will go finall to MongoDB.
 
+## Namespaces
+What is a Namespace ?
+- Organise resources in namespaces
+- Virtual cluster inside a cluster
+
+- Kuberneters-dashboard only with the minikube and not in the standard cluster. 
+- Kubernetes Cluster 
+1. kube-system: This a build in system, you shouldn't modify change or add anything. 
+2. kube-public: This is a publicly accessible data. A configMap which contains cluster information. 
+3. kube-node-lease: This is a hearbeat of nodes. Each node has associated lease object in namespace. Determines the availability of a node.
+4. kubectl-default: 
+5. -- You can create your own namespace with create command or create it with a configration file. 
+
+### What is the reason for it ? 
+So, lets say you have a one default namespace and you use that to build your system, eg you have everything like Database, Monitoring, Elastic Stack, Nginx-Ingress, everything soon it will be very untidy. So, we have a group of namespaces in k8s cluster, Database Namespace Monitoring Namespace, Elastic Stack, Nginx-Ingress to distribute and store pods and other services seprately and neatly. 
+
+### Kubernetes Ingress
