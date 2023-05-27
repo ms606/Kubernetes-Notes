@@ -153,9 +153,30 @@ What is a Namespace ?
 So, lets say you have a one default namespace and you use that to build your system, eg you have everything like Database, Monitoring, Elastic Stack, Nginx-Ingress, everything soon it will be very untidy. So, we have a group of namespaces in k8s cluster, Database Namespace Monitoring Namespace, Elastic Stack, Nginx-Ingress to distribute and store pods and other services seprately and neatly. 
 
 ### Kubernetes Ingress
+All outside request comes to Ingress Contoller then it decides by checking the rules, where to divert. 
 Open the Ingress config file, 
 Steps:
 * Install Ingress Controller (it's a pod or set of pods that runs in the node of k8s cluster)
-  Responsibilites: Evaluate all the rules & Manage redirections
-  
-* 
+  Responsibilites: Evaluate all the rules & Manage redirections, Entry point to the cluster. 
+  There are many third party implementation for the installation. The main controller of K8s itself is, k8s Nginx Ingress Controller
+  ```minikube addons enable ingress```
+  To check if its installed 
+  ``` kubectl get pod -n kube-system 
+  your will see the nginx-ingress-controller-....... 
+* Setup the ingress rule to access 
+  First check where to give the ip address ```kubectl get all -n kubernetes-dasboard 
+  You might see *service/kuberneters-dashboard*
+  Open dashboard-ingress.yaml config file 
+   spec > rules > - host: dashboard.com 
+   then 
+   spec > rules > - host > http > paths > - backend > serviceName: [service name from pod] like kubernetes-dashboard 
+   spec > rules > - host > http > paths > - backend > servicePort: 80 
+* For applying  
+   kubectl apply -f dasboard-ingress.yaml  
+* To check address in the response 
+   kubectl get ingress -n kubernetes-dashboard 
+* Now take the address like 192.168.64.5 .... and have to update it in host file 
+   sudo vim /etc/hosts  
+   ``` 192.168.64.5.. dashboard.com
+* Cloudload Balancer: If you using cloud then everything will be done, IF NOT then need to configure some entry point. Either inside of cluster or outside as seperate server. 
+*    
