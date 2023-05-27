@@ -153,3 +153,9 @@ What is a Namespace ?
 So, lets say you have a one default namespace and you use that to build your system, eg you have everything like Database, Monitoring, Elastic Stack, Nginx-Ingress, everything soon it will be very untidy. So, we have a group of namespaces in k8s cluster, Database Namespace Monitoring Namespace, Elastic Stack, Nginx-Ingress to distribute and store pods and other services seprately and neatly. 
 
 ### Kubernetes Ingress
+Open the Ingress config file, 
+Steps:
+* Install Ingress Controller (it's a pod or set of pods that runs in the node of k8s cluster)
+  Responsibilites: Evaluate all the rules & Manage redirections
+  
+* 
