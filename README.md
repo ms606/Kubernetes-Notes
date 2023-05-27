@@ -96,6 +96,34 @@ when we run
    Add everything below that is handles by Kubernetes itself. 
    
    
+``` Kubernetes Codes 
+* Get kube pod ? kubectl get pod 
+* Kube edit ?
+* Check kube image ?
+* To see the logs ? kubectl logs [pod name]
+* Create kube ? kubectl create deployment mongo-depl --image=mongo
+* Get additional details for the pod ? kubectl describe pod [pod name]
+* IF you want to debug or check whats inside the pod ? kubectl exec -it [full pod name] --bin/bash 
+* Check the list inside ? ls 
+* To exit ? exit 
+* Delete pods ? kubectl delete deployment [name] (Deletiong happens on the deployement level)
+* Usually there are alot of configration but you can't do all in one so when you want to do it later you can do it in a config file : kubectl apply -f [file name] 
+   Example kubectl apply -f config-file.yaml
+* 
+```
+
+YAML configration 
+1. Each configuration file has 3 parts, and both deployement and service has different types
+   1. Metadata
+   2. Specification
+   3. Status: It will be done by k8s itself. Desired? or Actual? It should be always =, like Desired = Actual, if not k8s will know something is wrong and it will try to heal itself. This is store in the ETCD, the brains of cluster. 
+2. Format of conf is YAML. Its has a strict syntax indentation. 
+3. Pods has there configration file in the deployement conf file, inside a template. This is also called a blueprint of the pod. 
+4. So the connection between Deployment and Service are made from label and seletors. 
+5. One setup you need is to have ports. 
+6. 
+
+
 ### Complete Application Setup with k8s components
 We will create two pods 
 1. MongoDB pod (internal service) 
