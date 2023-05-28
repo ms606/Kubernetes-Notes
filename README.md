@@ -178,5 +178,57 @@ Steps:
 * Now take the address like 192.168.64.5 .... and have to update it in host file 
    sudo vim /etc/hosts  
    ``` 192.168.64.5.. dashboard.com
+*  Multiple paths for same hosts: In dasboard-ingress.yaml we can add manys paths for different routes
+   Eg myapp.com is a host and path is /anayltics or path can be /shopping 
+   Or you can have subdomains like analytics.myapp.com 
+   
 * Cloudload Balancer: If you using cloud then everything will be done, IF NOT then need to configure some entry point. Either inside of cluster or outside as seperate server. 
-*    
+
+
+### Configuring TLS Certificate - https//
+add tls under specs and everything is added under that 
+
+specs:  
+  tls:
+  - hosts:
+   ... .. 
+   .. .. ... 
+   secretName: ..... [this holds secret tls certificate]
+   
+Note: Secret component must be in the same namespace as the Ingress component.    
+ Video Reference: 02:23:15   
+ 
+ 
+## Helm
+ It's a package manager for YAML. So lets say that we have many different types of pod, service, then we need to add Elastic stack for logging and then we need Stateful set, ConfigMap, K8s user permissions, secret, services etc creating all this one by one is a tedious task. So we create all of these files once and package it somewhere, so people using it in the same project can access it and use it.
+This bundle is called Helm chart.   
+
+## Kubernetes Volumes
+Three ways to persist data
+1. Persistent Volume:
+   We will add the configration in pod folder under the spec -- 02:49:58    
+2. Persisten Volume Claim:
+3. Storage Class: 
+   SC provisions persistent volumes dynamically, when persistentVolumeClaim claims it. And we use that provisioner attribute. 
+
+
+Volume Type: 
+1. Local volume
+2. Remote volume
+ 
+Local Volume type violates 2 and 3 requirments which are 
+   1. Being tied to 1 specific node
+   2. Surviving cluster crash
+So, for DB persistence use remote storage. 
+
+
+## StatefulSet 
+Stateful applications are whatever apps that stores data to keep track of its state or in short is connected and stores data in the database. 
+
+Stateless app. don't keep the record of the state and each request is completely new. Sometimes they are connected to stateful application just to pass the request. 
+
+
+
+
+
+
